@@ -1,17 +1,17 @@
 import { Card, Col, Row } from "react-bootstrap";
 
-const CardClima = () => {
+const CardClima = ({clima, nombreUbic}) => {
   return (
     <Card>
-      <Card.Header>NOMBRE DE LO BUSCADO</Card.Header>
+      <Card.Header>{nombreUbic}</Card.Header>
       <Card.Body>
         <Row className='align-items-center'>
           <Col sm={12} md={4} className='text-center'>
-            icono
+          {clima.icon}
           </Col>
           <Col sm={12} md={8}>
-            <Card.Title>Estado del clima</Card.Title>
-            <Card.Text>Descripcion del clima</Card.Text>
+            <Card.Title>{clima.main}</Card.Title>
+            <Card.Text>{clima.description}</Card.Text>
           </Col>
         </Row>
       </Card.Body>
