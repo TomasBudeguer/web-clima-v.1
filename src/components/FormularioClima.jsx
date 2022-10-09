@@ -5,14 +5,14 @@ import CardClima from "./CardClima";
 const FormularioClima = () => {
   const [ubicacion, setUbicacion] = useState("");
   const [nombreUbic, setNombreUbic] = useState("");
-  const [clima, setClima] = useState({});
+  const [clima, setClima] = useState([]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if(ubicacion.trim()=== ''){
-        alert('Complete el campo por favor')
-    }else{
-        consultarAPI();
+    if (ubicacion.trim() === "") {
+      alert("Complete el campo por favor");
+    } else {
+      consultarAPI();
     }
   };
 
@@ -28,8 +28,7 @@ const FormularioClima = () => {
           `https://api.openweathermap.org/data/2.5/weather?lat=${dato[0].lat}&lon=${dato[0].lon}&appid=2379bde6c1cae4cffefafe1d29717de2`
         );
         const datoFinal = await respuestaFinal.json();
-        setClima(datoFinal.weather[0]);
-        console.log(dato)
+        setClima(datoFinal.weather);
       } catch (error) {}
     } catch (error) {
       alert("ubicacion no encotrada");
@@ -63,9 +62,7 @@ const FormularioClima = () => {
           </Form.Group>
         </Form>
       </Card.Header>
-      <Card.Body>
-        <CardClima nombreUbic={nombreUbic} clima={clima}></CardClima>
-      </Card.Body>
+      <CardClima nombreUbic={nombreUbic} clima={clima}></CardClima>
     </Card>
   );
 };
