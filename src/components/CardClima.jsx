@@ -1,6 +1,6 @@
 import { Card, Col, Row } from "react-bootstrap";
 
-const CardClima = ({ clima, nombreUbic }) => {
+const CardClima = ({ clima, nombreUbic, temperatura }) => {
   return (
     <div>
       {clima.map((clima) => (
@@ -10,9 +10,10 @@ const CardClima = ({ clima, nombreUbic }) => {
             <Card.Body>
               <Row className="align-items-center">
                 <Col sm={12} md={4} className="text-center">
-                  {clima.icon}
+                <Card.Img src={'http://openweathermap.org/img/wn/' + clima.icon + '.png'} className='w-50' />
                 </Col>
                 <Col sm={12} md={8}>
+                  <Card.Title className="display-6">{temperatura.temp}°</Card.Title>
                   <Card.Title>{clima.main}</Card.Title>
                   <Card.Text>{clima.description}</Card.Text>
                 </Col>

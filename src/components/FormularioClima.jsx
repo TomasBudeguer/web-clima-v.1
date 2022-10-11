@@ -6,6 +6,7 @@ const FormularioClima = () => {
   const [ubicacion, setUbicacion] = useState("");
   const [nombreUbic, setNombreUbic] = useState("");
   const [clima, setClima] = useState([]);
+  const [temperatura, setTemperatura] = useState({})
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -13,6 +14,7 @@ const FormularioClima = () => {
       alert("Complete el campo por favor");
     } else {
       consultarAPI();
+      setUbicacion('')
     }
   };
 
@@ -25,10 +27,12 @@ const FormularioClima = () => {
       setNombreUbic(dato[0].name);
       try {
         const respuestaFinal = await fetch(
-          `https://api.openweathermap.org/data/2.5/weather?lat=${dato[0].lat}&lon=${dato[0].lon}&appid=2379bde6c1cae4cffefafe1d29717de2`
+          `https://api.openweathermap.org/data/2.5/weather?lat=${dato[0].lat}&lon=${dato[0].lon}&appid=2379bde6c1cae4cffefafe1d29717de2&units=metric&lang=es`
         );
         const datoFinal = await respuestaFinal.json();
+        console.log(datoFinal)
         setClima(datoFinal.weather);
+        setTemperatura(datoFinal.main)
       } catch (error) {}
     } catch (error) {
       alert("ubicacion no encotrada");
@@ -62,7 +66,7 @@ const FormularioClima = () => {
           </Form.Group>
         </Form>
       </Card.Header>
-      <CardClima nombreUbic={nombreUbic} clima={clima}></CardClima>
+      <CardClima nombreUbic={nombreUbic} clima={clima} temperatura={temperatura}></CardClima>
     </Card>
   );
 };
