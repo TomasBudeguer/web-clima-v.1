@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { Form, Button, Card, Row, Col } from "react-bootstrap";
 import CardClima from "./CardClima";
+import Spinner from "./Spinner"
 
 const FormularioClima = () => {
   const [ubicacion, setUbicacion] = useState("");
   const [nombreUbic, setNombreUbic] = useState("");
   const [clima, setClima] = useState([]);
   const [temperatura, setTemperatura] = useState({})
+  const [mostrarSpinner, setMostrarSpinner] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -20,6 +22,7 @@ const FormularioClima = () => {
 
   const consultarAPI = async () => {
     try {
+      setMostrarSpinner(true)
       const respuesta = await fetch(
         `http://api.openweathermap.org/geo/1.0/direct?q=${ubicacion}&appid=2379bde6c1cae4cffefafe1d29717de2`
       );
@@ -34,10 +37,14 @@ const FormularioClima = () => {
         setClima(datoFinal.weather);
         setTemperatura(datoFinal.main)
       } catch (error) {}
+      setMostrarSpinner(false)
     } catch (error) {
+      setMostrarSpinner(false)
       alert("ubicacion no encotrada");
     }
   };
+
+  const mostrarComponente = (mostrarSpinner === true)?(<Spinner></Spinner>):(<CardClima nombreUbic={nombreUbic} clima={clima} temperatura={temperatura}></CardClima>)
 
   return (
     <Card>
@@ -66,7 +73,7 @@ const FormularioClima = () => {
           </Form.Group>
         </Form>
       </Card.Header>
-      <CardClima nombreUbic={nombreUbic} clima={clima} temperatura={temperatura}></CardClima>
+      {mostrarComponente}
     </Card>
   );
 };

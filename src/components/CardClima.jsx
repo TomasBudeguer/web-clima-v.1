@@ -10,7 +10,7 @@ const CardClima = ({ clima, nombreUbic, temperatura }) => {
             <Card.Body>
               <Row className="align-items-center">
                 <Col sm={12} md={4} className="text-center">
-                <Card.Img src={'http://openweathermap.org/img/wn/' + clima.icon + '.png'} className='w-50' />
+                <Card.Img src={'http://openweathermap.org/img/wn/' + clima.icon + '.png'} className='w-25' />
                 </Col>
                 <Col sm={12} md={8}>
                   <Card.Title className="display-6">{temperatura.temp}°</Card.Title>
